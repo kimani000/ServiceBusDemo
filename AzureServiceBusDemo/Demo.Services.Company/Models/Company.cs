@@ -37,5 +37,7 @@ namespace Demo.Services.CompanyAPI.Models
 
         [MaxLength(10)]
         public string ZipCode { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
