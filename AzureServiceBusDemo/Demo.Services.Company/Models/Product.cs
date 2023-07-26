@@ -22,7 +22,7 @@ namespace Demo.Services.CompanyAPI.Models
 
         [ForeignKey(nameof(Company))]
         public Guid CompanyId { get; set; }
-        public Company Company { get; set; }
+        public virtual Company Company { get; set; }
     }
 }
 

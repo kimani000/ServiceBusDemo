@@ -7,7 +7,5 @@
         Pants = 2,
         Shorts = 3,
         Jackets = 4,
-
-
     }
 }

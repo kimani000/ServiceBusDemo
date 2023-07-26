@@ -6,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services
-    .AddCompanyDbCotext(builder.Configuration);
-    //.AddDomainServices();
+    .AddCompanyDbCotext(builder.Configuration)
+    .AddDomainServices();
 
 
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -15,7 +15,7 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+//IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();

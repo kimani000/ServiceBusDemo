@@ -1,5 +1,9 @@
 ﻿using Demo.Services.CompanyAPI.DbContexts;
+using Demo.Services.CompanyAPI.Interfaces;
+using Demo.Services.CompanyAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Demo.Services.CompanyAPI.Configurations
 {
     public static class DependencyInjection
@@ -18,10 +22,11 @@ namespace Demo.Services.CompanyAPI.Configurations
             return services;
         }
 
-        //public static IServiceCollection AddDomainServices(this IServiceCollection services)
-        //{
-        //    // TODO: Register services here
-        //    throw new NotImplementedException();
-        //}
+        public static IServiceCollection AddDomainServices(this IServiceCollection services)
+        {
+            services.AddScoped<ICompanyService, CompanyService>();
+
+            return services;
+        }
     }
 }
