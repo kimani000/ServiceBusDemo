@@ -1,33 +1,59 @@
-﻿using Demo.Services.CompanyAPI.Interfaces;
+﻿using Demo.Services.CompanyAPI.DbContexts;
+using Demo.Services.CompanyAPI.Interfaces;
 using Demo.Services.CompanyAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Services.CompanyAPI.Services
 {
     public class CompanyService : ICompanyService
     {
-        public Task<Company> AddCompnayAsync(Company company)
+        private readonly CompanyDbContext _context;
+
+        public CompanyService(CompanyDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<Company> DeleteCompanyAsybc(Guid companyId)
+        public async Task<List<Company>> GetCompaniesAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Companies.ToListAsync();
         }
 
-        public Task<IEnumerable<Company>> GetCompaniesAsync()
+        public async Task<Company> GetCompanyByIdAsync(Guid companyId)
         {
-            throw new NotImplementedException();
+            return await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId);
         }
 
-        public Task<Company> GetCompanyByIdAsync(Guid companyId)
+        public async Task<Company> AddCompnayAsync(Company company)
         {
-            throw new NotImplementedException();
+            await _context.Companies.AddAsync(company);
+            _context.SaveChanges();
+
+            return company;
         }
 
-        public Task<Company> UpdateCompanyAsyc(Company company)
+        public async Task<Company> DeleteCompanyAsync(Guid companyId)
         {
-            throw new NotImplementedException();
+            var company = _context.Companies.FirstOrDefault(x => x.Id == companyId);
+
+            if (company == null)
+            {
+                return null;
+            }
+
+            _context.Companies.Remove(company);
+            await _context.SaveChangesAsync();
+
+            return company;
+
+        }
+
+        public async Task<Company> UpdateCompanyAsyc(Company company)
+        {
+            _context.Companies.Update(company);
+            await _context.SaveChangesAsync();
+
+            return company;
         }
     }
 }

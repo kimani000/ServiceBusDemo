@@ -6,6 +6,11 @@ namespace Demo.Services.CompanyAPI.Models
     [Table(nameof(Company))]
     public class Company
     {
+        public Company()
+        {
+            Products = new HashSet<Product>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
