@@ -87,7 +87,7 @@ namespace Demo.Services.CompanyAPI.Controllers
 
             if (companyDTO.Id != Guid.Empty)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Can not add company with an id");
             }
 
             Company company = _mapper.Map<Company>(companyDTO);
@@ -136,7 +136,7 @@ namespace Demo.Services.CompanyAPI.Controllers
         {
             if (companyDTO == null || id != companyDTO.Id)
             {
-                return BadRequest("Input Id does not match the id of the company");
+                return BadRequest("Invalid Input: Company is null OR id does not match the companyId");
             }
 
             Company company = _mapper.Map<Company>(companyDTO);

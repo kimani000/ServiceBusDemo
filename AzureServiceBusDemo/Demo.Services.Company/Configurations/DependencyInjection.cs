@@ -25,6 +25,7 @@ namespace Demo.Services.CompanyAPI.Configurations
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
             services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IProductService, ProductService>();
 
             return services;
         }
