@@ -66,7 +66,7 @@ namespace Demo.Services.CompanyAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Company");
+                    b.ToTable("Company", (string)null);
                 });
 
             modelBuilder.Entity("Demo.Services.CompanyAPI.Models.Product", b =>
@@ -95,7 +95,7 @@ namespace Demo.Services.CompanyAPI.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
 
                     b.HasData(
                         new
