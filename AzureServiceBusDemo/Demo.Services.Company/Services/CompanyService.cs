@@ -19,9 +19,15 @@ namespace Demo.Services.CompanyAPI.Services
             return await _context.Companies.ToListAsync();
         }
 
-        public async Task<Company> GetCompanyByIdAsync(Guid companyId)
+        public async Task<Company> GetCompanyByIdAsync(Guid companyId, bool withTracking = true)
         {
-            return await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId);
+            if (withTracking) 
+            { 
+                return await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId);
+            }
+            
+            return await _context.Companies.AsNoTracking().FirstOrDefaultAsync(x => x.Id == companyId);
+
         }
 
         public async Task<Company> AddCompnayAsync(Company company)
@@ -51,6 +57,14 @@ namespace Demo.Services.CompanyAPI.Services
         public async Task<Company> UpdateCompanyAsyc(Company company)
         {
             _context.Companies.Update(company);
+            await _context.SaveChangesAsync();
+
+            return company;
+        }
+
+        public async Task<Company> PatchCompanyAsync(Company company)
+        {
+            _context.Entry(company).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return company;

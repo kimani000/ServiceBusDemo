@@ -33,7 +33,7 @@ namespace Demo.Services.CompanyAPI.Controllers
         [ProducesResponseType(typeof(CompanyDTO), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<CompanyDTO>>> GetCompanies()
         {
-           var companies = await _context.GetCompaniesAsync();
+            var companies = await _context.GetCompaniesAsync();
 
             return Ok(_mapper.Map<IEnumerable<CompanyDTO>>(companies));
         }
@@ -129,9 +129,9 @@ namespace Demo.Services.CompanyAPI.Controllers
             return NoContent();
         }
 
-       [HttpPut]
-       [ProducesResponseType(StatusCodes.Status204NoContent)]
-       [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateCompany(Guid id, [FromBody] CompanyDTO companyDTO)
         {
             if (companyDTO == null || id != companyDTO.Id)
@@ -146,6 +146,39 @@ namespace Demo.Services.CompanyAPI.Controllers
             return NoContent();
         }
 
-        // PATCH
+
+        [HttpPatch]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> PatchCompnay(Guid id, [FromBody] Microsoft.AspNetCore.JsonPatch.JsonPatchDocument<CompanyDTO> companyDTO)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Invalid Input: Company Id is null");
+            }
+
+            var companyFromDb = await _context.GetCompanyByIdAsync(id, false);
+
+            if (companyFromDb == null)
+            {
+                return NotFound(_notFoundMsg);
+            }
+
+            var companyFromDbAsDTO = _mapper.Map<CompanyDTO>(companyFromDb);
+
+            companyDTO.ApplyTo(companyFromDbAsDTO, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(_badRequestdMsg);
+            }
+
+            var company = _mapper.Map<Company>(companyFromDbAsDTO);
+
+            await _context.PatchCompanyAsync(company);
+
+            return NoContent();
+        }
     }
 }

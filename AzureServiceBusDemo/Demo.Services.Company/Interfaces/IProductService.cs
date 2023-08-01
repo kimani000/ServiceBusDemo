@@ -17,7 +17,7 @@ namespace Demo.Services.CompanyAPI.Interfaces
         Task<List<Product>> GetProductsAsync();
 
         /// <summary>
-        /// Gets a single product by Id
+        /// Gets a single product by Id with or without tracking
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>

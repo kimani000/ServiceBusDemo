@@ -15,11 +15,11 @@ namespace Demo.Services.CompanyAPI.Interfaces
         Task<List<Company>> GetCompaniesAsync();
 
         /// <summary>
-        /// Gets a single company by Id
+        /// Gets a single company by Id with or without tracking
         /// </summary>
         /// <param name="companyId"></param>
         /// <returns></returns>
-        Task<Company> GetCompanyByIdAsync(Guid companyId);
+        Task<Company> GetCompanyByIdAsync(Guid companyId, bool withTracking = true);
 
         /// <summary>
         ///  Adds a new company
@@ -41,5 +41,12 @@ namespace Demo.Services.CompanyAPI.Interfaces
         /// <param name="companyId"></param>
         /// <returns></returns>
         Task<Company> DeleteCompanyAsync(Guid companyId);
+
+        /// <summary>
+        /// Tracks the patched company then saves the change
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns></returns>
+        Task<Company> PatchCompanyAsync(Company company);
     }
 }
