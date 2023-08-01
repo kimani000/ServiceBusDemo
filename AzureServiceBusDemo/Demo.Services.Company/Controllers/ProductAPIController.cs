@@ -130,6 +130,7 @@ namespace Demo.Services.CompanyAPI.Controllers
         [HttpPatch("/api/product")]
         [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PatchProduct(Guid id, [FromBody]JsonPatchDocument<ProductDTO> productDTO)
         {
             if (id == Guid.Empty)
@@ -141,19 +142,19 @@ namespace Demo.Services.CompanyAPI.Controllers
 
             if (productFromDb == null)
             {
-                return BadRequest(_badRequestdMsg);
+                return NotFound(_notFoundMsg);
             }
 
-            var productDTOfromDb = _mapper.Map<ProductDTO>(productFromDb);
+            var productFromDbAsDTO = _mapper.Map<ProductDTO>(productFromDb);
 
-            productDTO.ApplyTo(productDTOfromDb, ModelState);
+            productDTO.ApplyTo(productFromDbAsDTO, ModelState);
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var product = _mapper.Map<Product>(productDTOfromDb);
+            var product = _mapper.Map<Product>(productFromDbAsDTO);
 
             await _context.PatchProductAsync(product);
 
