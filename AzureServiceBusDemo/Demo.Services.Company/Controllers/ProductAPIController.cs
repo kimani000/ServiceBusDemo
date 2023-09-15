@@ -90,9 +90,9 @@ namespace Demo.Services.CompanyAPI.Controllers
         }
 
         [HttpDelete("{id:Guid}", Name = "DeleteProduct")]
-        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
             if (id == Guid.Empty)
@@ -111,8 +111,8 @@ namespace Demo.Services.CompanyAPI.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] ProductDTO productDTO)
         {
             if (productDTO == null || id != productDTO.Id)
@@ -128,9 +128,9 @@ namespace Demo.Services.CompanyAPI.Controllers
         }
 
         [HttpPatch("/api/product")]
-        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PatchProduct(Guid id, [FromBody]JsonPatchDocument<ProductDTO> productDTO)
         {
             if (id == Guid.Empty)
