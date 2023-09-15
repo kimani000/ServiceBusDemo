@@ -11,5 +11,7 @@ namespace Demo.Services.ShoppingCartAPI.Models
         public Guid Id { get; set; }
 
         public virtual ICollection<ShoppingCartDetail> ShoppingCartDetail { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }
