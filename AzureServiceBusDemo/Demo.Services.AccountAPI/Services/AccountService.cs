@@ -14,12 +14,17 @@ namespace Demo.Services.AccountAPI.Services
             _context = context;
         }
 
-        public async Task<Account> GetAccountById(Guid userId)
+        public async Task<Account> GetAccountByIdAsync(Guid userId, bool withTracking = true)
         {
-            return await _context.Accounts.FirstOrDefaultAsync(x => x.Id == userId);
+            if (withTracking)
+            {
+                return await _context.Accounts.FirstOrDefaultAsync(x => x.Id == userId);
+            }
+
+            return await _context.Accounts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId);
         }
 
-        public async Task<bool> DeleteAccount(Guid userId)
+        public async Task<bool> DeleteAccountAsync(Guid userId)
         {
             var account = _context.Accounts.FirstOrDefault(x => x.Id == userId);
 
@@ -35,7 +40,7 @@ namespace Demo.Services.AccountAPI.Services
         }
 
 
-        public async Task<Account> PatchAccount(Account account)
+        public async Task<Account> PatchAccountAsync(Account account)
         {
             var accountExists = _context.Accounts.Any(x => x.Id == account.Id);
 
