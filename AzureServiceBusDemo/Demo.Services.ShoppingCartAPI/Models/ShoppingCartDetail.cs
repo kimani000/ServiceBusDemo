@@ -8,7 +8,7 @@ namespace Demo.Services.ShoppingCartAPI.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ShoppingCartDetailId { get; set; }
+        public Guid Id { get; set; }
 
         public Guid ShoppingCartId { get; set; }
 

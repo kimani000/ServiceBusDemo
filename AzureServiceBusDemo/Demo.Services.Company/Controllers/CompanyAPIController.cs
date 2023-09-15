@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Demo.Services.CompanyAPI.Controllers
 {
     /// <summary>
-    /// Class CompanyAPIControl contains CRUD endpoints for Company
+    /// Class CompanyAPIController contains CRUD endpoints for Company
     /// </summary>
     [ApiController]
     [Route("api/company")]

@@ -1,4 +1,6 @@
 ﻿using Demo.Services.ShoppingCartAPI.DbContexts;
+using Demo.Services.ShoppingCartAPI.Interfaces;
+using Demo.Services.ShoppingCartAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Services.ShoppingCartAPI.Configurations
@@ -21,8 +23,7 @@ namespace Demo.Services.ShoppingCartAPI.Configurations
 
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
-            //services.AddScoped<ICompanyService, CompanyService>();
-            //services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IShoppingCartService, ShoppingCartService>();
 
             return services;
         }

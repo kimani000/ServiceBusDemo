@@ -4,6 +4,7 @@ using Demo.Services.ShoppingCartAPI.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Demo.Services.ShoppingCartAPI.Migrations
 {
     [DbContext(typeof(ShoppingCartDbContext))]
-    partial class ShoppingCartDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230802024858_SeedShoppingCartTable")]
+    partial class SeedShoppingCartTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,11 +37,23 @@ namespace Demo.Services.ShoppingCartAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ShoppingCart");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("890a05e1-e229-4126-989d-b76bd9287dbe"),
+                            UserId = new Guid("d0faab23-c93c-42dd-b455-af2c6187f3f4")
+                        },
+                        new
+                        {
+                            Id = new Guid("55bd8681-b566-4286-80a5-7763fa964c88"),
+                            UserId = new Guid("66b041a3-4ab5-4733-93d9-2c6f343ff490")
+                        });
                 });
 
             modelBuilder.Entity("Demo.Services.ShoppingCartAPI.Models.ShoppingCartDetail", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("ShoppingCartDetailId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -51,41 +66,11 @@ namespace Demo.Services.ShoppingCartAPI.Migrations
                     b.Property<Guid>("ShoppingCartId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("ShoppingCartDetailId");
 
                     b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartDetail");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("750a9e5e-693a-48df-aa65-c3fbac57d5a3"),
-                            Count = 3,
-                            ProductId = new Guid("63846c08-4514-4a7b-1213-08db8e4f008f"),
-                            ShoppingCartId = new Guid("55bd8681-b566-4286-80a5-7763fa964c88")
-                        },
-                        new
-                        {
-                            Id = new Guid("4075409f-2fde-428f-aa8f-2c672697692c"),
-                            Count = 4,
-                            ProductId = new Guid("9a637913-87c9-4741-b5f3-1b4ff7a98ad9"),
-                            ShoppingCartId = new Guid("55bd8681-b566-4286-80a5-7763fa964c88")
-                        },
-                        new
-                        {
-                            Id = new Guid("70e98204-c28d-4eb3-aad5-d984202299a7"),
-                            Count = 2,
-                            ProductId = new Guid("9135cb05-9652-4717-a4a6-81bf042fb86c"),
-                            ShoppingCartId = new Guid("890a05e1-e229-4126-989d-b76bd9287dbe")
-                        },
-                        new
-                        {
-                            Id = new Guid("00a9eba0-509c-48c6-b9c9-a788eef4008f"),
-                            Count = 1,
-                            ProductId = new Guid("61777b2c-964d-4ad7-974c-dc75037e4b89"),
-                            ShoppingCartId = new Guid("890a05e1-e229-4126-989d-b76bd9287dbe")
-                        });
                 });
 
             modelBuilder.Entity("Demo.Services.ShoppingCartAPI.Models.ShoppingCartDetail", b =>
